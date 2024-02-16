@@ -7,14 +7,22 @@ function start() {
 }
 
 function injectShareButton() {
-  const container = document.querySelector("main form > div");
+  // Targeting the flex container directly
+  const container = document.querySelector("div.absolute.bottom-0.right-0.top-0.flex.items-center");
   if (!container) return;
+
   const existingShareButton = container.querySelector(".gptbest-share-button");
-  if (existingShareButton) return;
+  if (existingShareButton) return; // Prevent adding the button more than once
+
   const shareButton = createButton();
   shareButton.addEventListener("click", save);
+  
+  // Adjust styling if needed to match the existing button
+  shareButton.style.marginLeft = "8px"; // Adding some space between buttons
+  
   container.appendChild(shareButton);
 }
+
 
 async function save() {
   try {
@@ -36,19 +44,16 @@ async function save() {
 function createButton() {
   const shareButton = document.createElement("button");
   shareButton.style.color = "white";
-  shareButton.style.backgroundColor = "var(--color-primary)";
-  shareButton.style.width = "28px";
-  shareButton.style.height = "28px";
-  shareButton.style.borderRadius = "4px";
-  shareButton.style.display = "grid";
-  shareButton.style.placeItems = "center";
-  shareButton.style.position = "absolute";
-  shareButton.style.right = "-42px";
-  shareButton.style.bottom = "10px";
-  shareButton.appendChild(createShareIcon());
+  // Add or adjust styles to match the existing button
   shareButton.classList.add("gptbest-share-button");
+  // Set button type to match existing UI conventions
+  shareButton.setAttribute("type", "button");
+  shareButton.style.padding = "0 8px"; // Example adjustment for padding
+  // Other styling adjustments as needed...
+  shareButton.appendChild(createShareIcon());
   return shareButton;
 }
+
 
 function createShareIcon() {
   const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
